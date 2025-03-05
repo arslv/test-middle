@@ -11,7 +11,7 @@ class GalleryRepository {
   Future<void> ensureCollectionExists() async {
     final (snapshot, error) = await _firestoreService.getCollection(collectionName);
     if (error != null && error.contains('not-found')) {
-      // Создаем коллекцию, добавляя первый документ
+      // Создаем коллекцию, добавляя первый документ TODO не забыть потом удалять его
       await _firestoreService.createDocument(
         collection: collectionName,
         data: {

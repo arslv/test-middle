@@ -65,12 +65,10 @@ class _CreateImagePageState extends State<CreateImagePage> {
 
   void _saveImage() async {
     try {
-      // Получаем размер контейнера для корректного рендера
       final renderSize = context.size ?? const Size(800, 600);
       final image = await _controller.renderImage(renderSize);
       
       if (image != null) {
-        // Конвертируем изображение в bytes
         final byteData = await image.toByteData(format: ImageByteFormat.png);
         if (byteData == null) return;
         
@@ -78,16 +76,13 @@ class _CreateImagePageState extends State<CreateImagePage> {
         
         // Генерируем уникальное имя файла
         final fileName = 'drawing_${DateTime.now().millisecondsSinceEpoch}';
-        
-        // Загружаем в Storage
+
         final imageUrl = await _storageService.uploadImage(imageBytes, fileName);
         
         if (imageUrl != null) {
-          // Получаем данные текущего пользователя
           final user = _auth.currentUser;
           if (user == null) return;
-          
-          // Сохраняем в Firestore через bloc
+
           context.read<GalleryBloc>().add(
                 GalleryEvent.imageUploadRequested(
                   name: fileName,
@@ -96,8 +91,7 @@ class _CreateImagePageState extends State<CreateImagePage> {
                   authorName: user.email ?? 'Unknown',
                 ),
               );
-              
-          // Возвращаемся на галерею
+
           context.pushReplacementNamed(AppRoutes.gallery);
         }
       }
