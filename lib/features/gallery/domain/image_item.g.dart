@@ -10,7 +10,7 @@ _$ImageItemImpl _$$ImageItemImplFromJson(Map<String, dynamic> json) =>
     _$ImageItemImpl(
       id: json['id'] as String,
       name: json['name'] as String,
-      imageUrl: json['imageUrl'] as String,
+      imageData: json['imageData'] as String,
       authorId: json['authorId'] as String,
       authorName: json['authorName'] as String,
       createdAt: _dateTimeFromJson(json['createdAt']),
@@ -20,7 +20,7 @@ Map<String, dynamic> _$$ImageItemImplToJson(_$ImageItemImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'imageUrl': instance.imageUrl,
+      'imageData': instance.imageData,
       'authorId': instance.authorId,
       'authorName': instance.authorName,
       'createdAt': _dateTimeToJson(instance.createdAt),

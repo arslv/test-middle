@@ -9,7 +9,7 @@ class ImageItem with _$ImageItem {
   const factory ImageItem({
     required String id,
     required String name,
-    required String imageUrl,
+    required String imageData,
     required String authorId,
     required String authorName,
     @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
@@ -23,10 +23,10 @@ class ImageItem with _$ImageItem {
     return ImageItem(
       id: doc.id,
       name: data['name'] as String,
-      imageUrl: data['imageUrl'] as String,
+      imageData: data['imageData'] as String,
       authorId: data['authorId'] as String,
       authorName: data['authorName'] as String,
-      createdAt: (data['createdAt'] as Timestamp).toDate(),
+      createdAt: _dateTimeFromJson(data['createdAt']),
     );
   }
 }
@@ -34,10 +34,12 @@ class ImageItem with _$ImageItem {
 DateTime _dateTimeFromJson(dynamic timestamp) {
   if (timestamp is Timestamp) {
     return timestamp.toDate();
+  } else if (timestamp is DateTime) {
+    return timestamp;
   }
-  return DateTime.parse(timestamp as String);
+  return DateTime.now();
 }
 
 dynamic _dateTimeToJson(DateTime dateTime) {
-  return dateTime.toIso8601String();
+  return Timestamp.fromDate(dateTime);
 } 

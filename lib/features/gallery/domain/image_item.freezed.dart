@@ -22,7 +22,7 @@ ImageItem _$ImageItemFromJson(Map<String, dynamic> json) {
 mixin _$ImageItem {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  String get imageData => throw _privateConstructorUsedError;
   String get authorId => throw _privateConstructorUsedError;
   String get authorName => throw _privateConstructorUsedError;
   @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
@@ -46,7 +46,7 @@ abstract class $ImageItemCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      String imageUrl,
+      String imageData,
       String authorId,
       String authorName,
       @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
@@ -70,7 +70,7 @@ class _$ImageItemCopyWithImpl<$Res, $Val extends ImageItem>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? imageUrl = null,
+    Object? imageData = null,
     Object? authorId = null,
     Object? authorName = null,
     Object? createdAt = null,
@@ -84,9 +84,9 @@ class _$ImageItemCopyWithImpl<$Res, $Val extends ImageItem>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      imageData: null == imageData
+          ? _value.imageData
+          : imageData // ignore: cast_nullable_to_non_nullable
               as String,
       authorId: null == authorId
           ? _value.authorId
@@ -115,7 +115,7 @@ abstract class _$$ImageItemImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
-      String imageUrl,
+      String imageData,
       String authorId,
       String authorName,
       @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
@@ -137,7 +137,7 @@ class __$$ImageItemImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? imageUrl = null,
+    Object? imageData = null,
     Object? authorId = null,
     Object? authorName = null,
     Object? createdAt = null,
@@ -151,9 +151,9 @@ class __$$ImageItemImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      imageData: null == imageData
+          ? _value.imageData
+          : imageData // ignore: cast_nullable_to_non_nullable
               as String,
       authorId: null == authorId
           ? _value.authorId
@@ -177,7 +177,7 @@ class _$ImageItemImpl implements _ImageItem {
   const _$ImageItemImpl(
       {required this.id,
       required this.name,
-      required this.imageUrl,
+      required this.imageData,
       required this.authorId,
       required this.authorName,
       @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
@@ -191,7 +191,7 @@ class _$ImageItemImpl implements _ImageItem {
   @override
   final String name;
   @override
-  final String imageUrl;
+  final String imageData;
   @override
   final String authorId;
   @override
@@ -202,7 +202,7 @@ class _$ImageItemImpl implements _ImageItem {
 
   @override
   String toString() {
-    return 'ImageItem(id: $id, name: $name, imageUrl: $imageUrl, authorId: $authorId, authorName: $authorName, createdAt: $createdAt)';
+    return 'ImageItem(id: $id, name: $name, imageData: $imageData, authorId: $authorId, authorName: $authorName, createdAt: $createdAt)';
   }
 
   @override
@@ -212,8 +212,8 @@ class _$ImageItemImpl implements _ImageItem {
             other is _$ImageItemImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
+            (identical(other.imageData, imageData) ||
+                other.imageData == imageData) &&
             (identical(other.authorId, authorId) ||
                 other.authorId == authorId) &&
             (identical(other.authorName, authorName) ||
@@ -225,7 +225,7 @@ class _$ImageItemImpl implements _ImageItem {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, name, imageUrl, authorId, authorName, createdAt);
+      runtimeType, id, name, imageData, authorId, authorName, createdAt);
 
   /// Create a copy of ImageItem
   /// with the given fields replaced by the non-null parameter values.
@@ -247,7 +247,7 @@ abstract class _ImageItem implements ImageItem {
   const factory _ImageItem(
       {required final String id,
       required final String name,
-      required final String imageUrl,
+      required final String imageData,
       required final String authorId,
       required final String authorName,
       @JsonKey(fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
@@ -261,7 +261,7 @@ abstract class _ImageItem implements ImageItem {
   @override
   String get name;
   @override
-  String get imageUrl;
+  String get imageData;
   @override
   String get authorId;
   @override

@@ -8,4 +8,5 @@ class GalleryState with _$GalleryState {
   const factory GalleryState.uploading() = _Uploading;
   const factory GalleryState.uploadSuccess() = _UploadSuccess;
   const factory GalleryState.uploadFailure(String message) = _UploadFailure;
+  const factory GalleryState.loadFailure(String message) = _LoadFailure;
 } 

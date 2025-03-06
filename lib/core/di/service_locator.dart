@@ -1,10 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
-import '../services/storage_service.dart';
 import '../../features/auth/bloc/auth_bloc.dart';
 import '../../features/gallery/data/gallery_repository.dart';
 import '../../features/gallery/presentation/bloc/gallery_bloc.dart';
@@ -15,12 +13,10 @@ void setupServiceLocator() {
   // Firebase instances
   getIt.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
   getIt.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
-  getIt.registerSingleton<FirebaseStorage>(FirebaseStorage.instance);
 
   // Services
   getIt.registerSingleton<AuthService>(AuthService(getIt<FirebaseAuth>()));
   getIt.registerSingleton<FirestoreService>(FirestoreService(getIt<FirebaseFirestore>()));
-  getIt.registerSingleton<StorageService>(StorageService(getIt<FirebaseStorage>()));
 
   // Repositories
   getIt.registerSingleton<GalleryRepository>(GalleryRepository(getIt<FirestoreService>()));

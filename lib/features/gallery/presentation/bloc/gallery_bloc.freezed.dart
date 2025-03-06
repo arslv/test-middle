@@ -20,8 +20,8 @@ mixin _$GalleryEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() initialized,
     required TResult Function(List<ImageItem> images) imagesReceived,
-    required TResult Function(
-            String name, String imageUrl, String authorId, String authorName)
+    required TResult Function(String name, Uint8List imageBytes,
+            String authorId, String authorName)
         imageUploadRequested,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,8 +29,8 @@ mixin _$GalleryEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialized,
     TResult? Function(List<ImageItem> images)? imagesReceived,
-    TResult? Function(
-            String name, String imageUrl, String authorId, String authorName)?
+    TResult? Function(String name, Uint8List imageBytes, String authorId,
+            String authorName)?
         imageUploadRequested,
   }) =>
       throw _privateConstructorUsedError;
@@ -38,8 +38,8 @@ mixin _$GalleryEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
     TResult Function(List<ImageItem> images)? imagesReceived,
-    TResult Function(
-            String name, String imageUrl, String authorId, String authorName)?
+    TResult Function(String name, Uint8List imageBytes, String authorId,
+            String authorName)?
         imageUploadRequested,
     required TResult orElse(),
   }) =>
@@ -132,8 +132,8 @@ class _$InitializedImpl implements _Initialized {
   TResult when<TResult extends Object?>({
     required TResult Function() initialized,
     required TResult Function(List<ImageItem> images) imagesReceived,
-    required TResult Function(
-            String name, String imageUrl, String authorId, String authorName)
+    required TResult Function(String name, Uint8List imageBytes,
+            String authorId, String authorName)
         imageUploadRequested,
   }) {
     return initialized();
@@ -144,8 +144,8 @@ class _$InitializedImpl implements _Initialized {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialized,
     TResult? Function(List<ImageItem> images)? imagesReceived,
-    TResult? Function(
-            String name, String imageUrl, String authorId, String authorName)?
+    TResult? Function(String name, Uint8List imageBytes, String authorId,
+            String authorName)?
         imageUploadRequested,
   }) {
     return initialized?.call();
@@ -156,8 +156,8 @@ class _$InitializedImpl implements _Initialized {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
     TResult Function(List<ImageItem> images)? imagesReceived,
-    TResult Function(
-            String name, String imageUrl, String authorId, String authorName)?
+    TResult Function(String name, Uint8List imageBytes, String authorId,
+            String authorName)?
         imageUploadRequested,
     required TResult orElse(),
   }) {
@@ -283,8 +283,8 @@ class _$ImagesReceivedImpl implements _ImagesReceived {
   TResult when<TResult extends Object?>({
     required TResult Function() initialized,
     required TResult Function(List<ImageItem> images) imagesReceived,
-    required TResult Function(
-            String name, String imageUrl, String authorId, String authorName)
+    required TResult Function(String name, Uint8List imageBytes,
+            String authorId, String authorName)
         imageUploadRequested,
   }) {
     return imagesReceived(images);
@@ -295,8 +295,8 @@ class _$ImagesReceivedImpl implements _ImagesReceived {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialized,
     TResult? Function(List<ImageItem> images)? imagesReceived,
-    TResult? Function(
-            String name, String imageUrl, String authorId, String authorName)?
+    TResult? Function(String name, Uint8List imageBytes, String authorId,
+            String authorName)?
         imageUploadRequested,
   }) {
     return imagesReceived?.call(images);
@@ -307,8 +307,8 @@ class _$ImagesReceivedImpl implements _ImagesReceived {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
     TResult Function(List<ImageItem> images)? imagesReceived,
-    TResult Function(
-            String name, String imageUrl, String authorId, String authorName)?
+    TResult Function(String name, Uint8List imageBytes, String authorId,
+            String authorName)?
         imageUploadRequested,
     required TResult orElse(),
   }) {
@@ -372,7 +372,8 @@ abstract class _$$ImageUploadRequestedImplCopyWith<$Res> {
           $Res Function(_$ImageUploadRequestedImpl) then) =
       __$$ImageUploadRequestedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String name, String imageUrl, String authorId, String authorName});
+  $Res call(
+      {String name, Uint8List imageBytes, String authorId, String authorName});
 }
 
 /// @nodoc
@@ -389,7 +390,7 @@ class __$$ImageUploadRequestedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? imageUrl = null,
+    Object? imageBytes = null,
     Object? authorId = null,
     Object? authorName = null,
   }) {
@@ -398,10 +399,10 @@ class __$$ImageUploadRequestedImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      imageBytes: null == imageBytes
+          ? _value.imageBytes
+          : imageBytes // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
       authorId: null == authorId
           ? _value.authorId
           : authorId // ignore: cast_nullable_to_non_nullable
@@ -419,14 +420,14 @@ class __$$ImageUploadRequestedImplCopyWithImpl<$Res>
 class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
   const _$ImageUploadRequestedImpl(
       {required this.name,
-      required this.imageUrl,
+      required this.imageBytes,
       required this.authorId,
       required this.authorName});
 
   @override
   final String name;
   @override
-  final String imageUrl;
+  final Uint8List imageBytes;
   @override
   final String authorId;
   @override
@@ -434,7 +435,7 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
 
   @override
   String toString() {
-    return 'GalleryEvent.imageUploadRequested(name: $name, imageUrl: $imageUrl, authorId: $authorId, authorName: $authorName)';
+    return 'GalleryEvent.imageUploadRequested(name: $name, imageBytes: $imageBytes, authorId: $authorId, authorName: $authorName)';
   }
 
   @override
@@ -443,8 +444,8 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
         (other.runtimeType == runtimeType &&
             other is _$ImageUploadRequestedImpl &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.imageBytes, imageBytes) &&
             (identical(other.authorId, authorId) ||
                 other.authorId == authorId) &&
             (identical(other.authorName, authorName) ||
@@ -452,8 +453,8 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, imageUrl, authorId, authorName);
+  int get hashCode => Object.hash(runtimeType, name,
+      const DeepCollectionEquality().hash(imageBytes), authorId, authorName);
 
   /// Create a copy of GalleryEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -470,11 +471,11 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
   TResult when<TResult extends Object?>({
     required TResult Function() initialized,
     required TResult Function(List<ImageItem> images) imagesReceived,
-    required TResult Function(
-            String name, String imageUrl, String authorId, String authorName)
+    required TResult Function(String name, Uint8List imageBytes,
+            String authorId, String authorName)
         imageUploadRequested,
   }) {
-    return imageUploadRequested(name, imageUrl, authorId, authorName);
+    return imageUploadRequested(name, imageBytes, authorId, authorName);
   }
 
   @override
@@ -482,11 +483,11 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialized,
     TResult? Function(List<ImageItem> images)? imagesReceived,
-    TResult? Function(
-            String name, String imageUrl, String authorId, String authorName)?
+    TResult? Function(String name, Uint8List imageBytes, String authorId,
+            String authorName)?
         imageUploadRequested,
   }) {
-    return imageUploadRequested?.call(name, imageUrl, authorId, authorName);
+    return imageUploadRequested?.call(name, imageBytes, authorId, authorName);
   }
 
   @override
@@ -494,13 +495,13 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
     TResult Function(List<ImageItem> images)? imagesReceived,
-    TResult Function(
-            String name, String imageUrl, String authorId, String authorName)?
+    TResult Function(String name, Uint8List imageBytes, String authorId,
+            String authorName)?
         imageUploadRequested,
     required TResult orElse(),
   }) {
     if (imageUploadRequested != null) {
-      return imageUploadRequested(name, imageUrl, authorId, authorName);
+      return imageUploadRequested(name, imageBytes, authorId, authorName);
     }
     return orElse();
   }
@@ -543,12 +544,12 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
 abstract class _ImageUploadRequested implements GalleryEvent {
   const factory _ImageUploadRequested(
       {required final String name,
-      required final String imageUrl,
+      required final Uint8List imageBytes,
       required final String authorId,
       required final String authorName}) = _$ImageUploadRequestedImpl;
 
   String get name;
-  String get imageUrl;
+  Uint8List get imageBytes;
   String get authorId;
   String get authorName;
 
@@ -569,6 +570,7 @@ mixin _$GalleryState {
     required TResult Function() uploading,
     required TResult Function() uploadSuccess,
     required TResult Function(String message) uploadFailure,
+    required TResult Function(String message) loadFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -579,6 +581,7 @@ mixin _$GalleryState {
     TResult? Function()? uploading,
     TResult? Function()? uploadSuccess,
     TResult? Function(String message)? uploadFailure,
+    TResult? Function(String message)? loadFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -589,6 +592,7 @@ mixin _$GalleryState {
     TResult Function()? uploading,
     TResult Function()? uploadSuccess,
     TResult Function(String message)? uploadFailure,
+    TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -600,6 +604,7 @@ mixin _$GalleryState {
     required TResult Function(_Uploading value) uploading,
     required TResult Function(_UploadSuccess value) uploadSuccess,
     required TResult Function(_UploadFailure value) uploadFailure,
+    required TResult Function(_LoadFailure value) loadFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -610,6 +615,7 @@ mixin _$GalleryState {
     TResult? Function(_Uploading value)? uploading,
     TResult? Function(_UploadSuccess value)? uploadSuccess,
     TResult? Function(_UploadFailure value)? uploadFailure,
+    TResult? Function(_LoadFailure value)? loadFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -620,6 +626,7 @@ mixin _$GalleryState {
     TResult Function(_Uploading value)? uploading,
     TResult Function(_UploadSuccess value)? uploadSuccess,
     TResult Function(_UploadFailure value)? uploadFailure,
+    TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -693,6 +700,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() uploading,
     required TResult Function() uploadSuccess,
     required TResult Function(String message) uploadFailure,
+    required TResult Function(String message) loadFailure,
   }) {
     return initial();
   }
@@ -706,6 +714,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? uploading,
     TResult? Function()? uploadSuccess,
     TResult? Function(String message)? uploadFailure,
+    TResult? Function(String message)? loadFailure,
   }) {
     return initial?.call();
   }
@@ -719,6 +728,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? uploading,
     TResult Function()? uploadSuccess,
     TResult Function(String message)? uploadFailure,
+    TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -736,6 +746,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Uploading value) uploading,
     required TResult Function(_UploadSuccess value) uploadSuccess,
     required TResult Function(_UploadFailure value) uploadFailure,
+    required TResult Function(_LoadFailure value) loadFailure,
   }) {
     return initial(this);
   }
@@ -749,6 +760,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Uploading value)? uploading,
     TResult? Function(_UploadSuccess value)? uploadSuccess,
     TResult? Function(_UploadFailure value)? uploadFailure,
+    TResult? Function(_LoadFailure value)? loadFailure,
   }) {
     return initial?.call(this);
   }
@@ -762,6 +774,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Uploading value)? uploading,
     TResult Function(_UploadSuccess value)? uploadSuccess,
     TResult Function(_UploadFailure value)? uploadFailure,
+    TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -822,6 +835,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() uploading,
     required TResult Function() uploadSuccess,
     required TResult Function(String message) uploadFailure,
+    required TResult Function(String message) loadFailure,
   }) {
     return loading();
   }
@@ -835,6 +849,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? uploading,
     TResult? Function()? uploadSuccess,
     TResult? Function(String message)? uploadFailure,
+    TResult? Function(String message)? loadFailure,
   }) {
     return loading?.call();
   }
@@ -848,6 +863,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? uploading,
     TResult Function()? uploadSuccess,
     TResult Function(String message)? uploadFailure,
+    TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -865,6 +881,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Uploading value) uploading,
     required TResult Function(_UploadSuccess value) uploadSuccess,
     required TResult Function(_UploadFailure value) uploadFailure,
+    required TResult Function(_LoadFailure value) loadFailure,
   }) {
     return loading(this);
   }
@@ -878,6 +895,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Uploading value)? uploading,
     TResult? Function(_UploadSuccess value)? uploadSuccess,
     TResult? Function(_UploadFailure value)? uploadFailure,
+    TResult? Function(_LoadFailure value)? loadFailure,
   }) {
     return loading?.call(this);
   }
@@ -891,6 +909,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Uploading value)? uploading,
     TResult Function(_UploadSuccess value)? uploadSuccess,
     TResult Function(_UploadFailure value)? uploadFailure,
+    TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -984,6 +1003,7 @@ class _$LoadSuccessImpl implements _LoadSuccess {
     required TResult Function() uploading,
     required TResult Function() uploadSuccess,
     required TResult Function(String message) uploadFailure,
+    required TResult Function(String message) loadFailure,
   }) {
     return loadSuccess(images);
   }
@@ -997,6 +1017,7 @@ class _$LoadSuccessImpl implements _LoadSuccess {
     TResult? Function()? uploading,
     TResult? Function()? uploadSuccess,
     TResult? Function(String message)? uploadFailure,
+    TResult? Function(String message)? loadFailure,
   }) {
     return loadSuccess?.call(images);
   }
@@ -1010,6 +1031,7 @@ class _$LoadSuccessImpl implements _LoadSuccess {
     TResult Function()? uploading,
     TResult Function()? uploadSuccess,
     TResult Function(String message)? uploadFailure,
+    TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) {
     if (loadSuccess != null) {
@@ -1027,6 +1049,7 @@ class _$LoadSuccessImpl implements _LoadSuccess {
     required TResult Function(_Uploading value) uploading,
     required TResult Function(_UploadSuccess value) uploadSuccess,
     required TResult Function(_UploadFailure value) uploadFailure,
+    required TResult Function(_LoadFailure value) loadFailure,
   }) {
     return loadSuccess(this);
   }
@@ -1040,6 +1063,7 @@ class _$LoadSuccessImpl implements _LoadSuccess {
     TResult? Function(_Uploading value)? uploading,
     TResult? Function(_UploadSuccess value)? uploadSuccess,
     TResult? Function(_UploadFailure value)? uploadFailure,
+    TResult? Function(_LoadFailure value)? loadFailure,
   }) {
     return loadSuccess?.call(this);
   }
@@ -1053,6 +1077,7 @@ class _$LoadSuccessImpl implements _LoadSuccess {
     TResult Function(_Uploading value)? uploading,
     TResult Function(_UploadSuccess value)? uploadSuccess,
     TResult Function(_UploadFailure value)? uploadFailure,
+    TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
     if (loadSuccess != null) {
@@ -1121,6 +1146,7 @@ class _$UploadingImpl implements _Uploading {
     required TResult Function() uploading,
     required TResult Function() uploadSuccess,
     required TResult Function(String message) uploadFailure,
+    required TResult Function(String message) loadFailure,
   }) {
     return uploading();
   }
@@ -1134,6 +1160,7 @@ class _$UploadingImpl implements _Uploading {
     TResult? Function()? uploading,
     TResult? Function()? uploadSuccess,
     TResult? Function(String message)? uploadFailure,
+    TResult? Function(String message)? loadFailure,
   }) {
     return uploading?.call();
   }
@@ -1147,6 +1174,7 @@ class _$UploadingImpl implements _Uploading {
     TResult Function()? uploading,
     TResult Function()? uploadSuccess,
     TResult Function(String message)? uploadFailure,
+    TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) {
     if (uploading != null) {
@@ -1164,6 +1192,7 @@ class _$UploadingImpl implements _Uploading {
     required TResult Function(_Uploading value) uploading,
     required TResult Function(_UploadSuccess value) uploadSuccess,
     required TResult Function(_UploadFailure value) uploadFailure,
+    required TResult Function(_LoadFailure value) loadFailure,
   }) {
     return uploading(this);
   }
@@ -1177,6 +1206,7 @@ class _$UploadingImpl implements _Uploading {
     TResult? Function(_Uploading value)? uploading,
     TResult? Function(_UploadSuccess value)? uploadSuccess,
     TResult? Function(_UploadFailure value)? uploadFailure,
+    TResult? Function(_LoadFailure value)? loadFailure,
   }) {
     return uploading?.call(this);
   }
@@ -1190,6 +1220,7 @@ class _$UploadingImpl implements _Uploading {
     TResult Function(_Uploading value)? uploading,
     TResult Function(_UploadSuccess value)? uploadSuccess,
     TResult Function(_UploadFailure value)? uploadFailure,
+    TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
     if (uploading != null) {
@@ -1250,6 +1281,7 @@ class _$UploadSuccessImpl implements _UploadSuccess {
     required TResult Function() uploading,
     required TResult Function() uploadSuccess,
     required TResult Function(String message) uploadFailure,
+    required TResult Function(String message) loadFailure,
   }) {
     return uploadSuccess();
   }
@@ -1263,6 +1295,7 @@ class _$UploadSuccessImpl implements _UploadSuccess {
     TResult? Function()? uploading,
     TResult? Function()? uploadSuccess,
     TResult? Function(String message)? uploadFailure,
+    TResult? Function(String message)? loadFailure,
   }) {
     return uploadSuccess?.call();
   }
@@ -1276,6 +1309,7 @@ class _$UploadSuccessImpl implements _UploadSuccess {
     TResult Function()? uploading,
     TResult Function()? uploadSuccess,
     TResult Function(String message)? uploadFailure,
+    TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) {
     if (uploadSuccess != null) {
@@ -1293,6 +1327,7 @@ class _$UploadSuccessImpl implements _UploadSuccess {
     required TResult Function(_Uploading value) uploading,
     required TResult Function(_UploadSuccess value) uploadSuccess,
     required TResult Function(_UploadFailure value) uploadFailure,
+    required TResult Function(_LoadFailure value) loadFailure,
   }) {
     return uploadSuccess(this);
   }
@@ -1306,6 +1341,7 @@ class _$UploadSuccessImpl implements _UploadSuccess {
     TResult? Function(_Uploading value)? uploading,
     TResult? Function(_UploadSuccess value)? uploadSuccess,
     TResult? Function(_UploadFailure value)? uploadFailure,
+    TResult? Function(_LoadFailure value)? loadFailure,
   }) {
     return uploadSuccess?.call(this);
   }
@@ -1319,6 +1355,7 @@ class _$UploadSuccessImpl implements _UploadSuccess {
     TResult Function(_Uploading value)? uploading,
     TResult Function(_UploadSuccess value)? uploadSuccess,
     TResult Function(_UploadFailure value)? uploadFailure,
+    TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
     if (uploadSuccess != null) {
@@ -1406,6 +1443,7 @@ class _$UploadFailureImpl implements _UploadFailure {
     required TResult Function() uploading,
     required TResult Function() uploadSuccess,
     required TResult Function(String message) uploadFailure,
+    required TResult Function(String message) loadFailure,
   }) {
     return uploadFailure(message);
   }
@@ -1419,6 +1457,7 @@ class _$UploadFailureImpl implements _UploadFailure {
     TResult? Function()? uploading,
     TResult? Function()? uploadSuccess,
     TResult? Function(String message)? uploadFailure,
+    TResult? Function(String message)? loadFailure,
   }) {
     return uploadFailure?.call(message);
   }
@@ -1432,6 +1471,7 @@ class _$UploadFailureImpl implements _UploadFailure {
     TResult Function()? uploading,
     TResult Function()? uploadSuccess,
     TResult Function(String message)? uploadFailure,
+    TResult Function(String message)? loadFailure,
     required TResult orElse(),
   }) {
     if (uploadFailure != null) {
@@ -1449,6 +1489,7 @@ class _$UploadFailureImpl implements _UploadFailure {
     required TResult Function(_Uploading value) uploading,
     required TResult Function(_UploadSuccess value) uploadSuccess,
     required TResult Function(_UploadFailure value) uploadFailure,
+    required TResult Function(_LoadFailure value) loadFailure,
   }) {
     return uploadFailure(this);
   }
@@ -1462,6 +1503,7 @@ class _$UploadFailureImpl implements _UploadFailure {
     TResult? Function(_Uploading value)? uploading,
     TResult? Function(_UploadSuccess value)? uploadSuccess,
     TResult? Function(_UploadFailure value)? uploadFailure,
+    TResult? Function(_LoadFailure value)? loadFailure,
   }) {
     return uploadFailure?.call(this);
   }
@@ -1475,6 +1517,7 @@ class _$UploadFailureImpl implements _UploadFailure {
     TResult Function(_Uploading value)? uploading,
     TResult Function(_UploadSuccess value)? uploadSuccess,
     TResult Function(_UploadFailure value)? uploadFailure,
+    TResult Function(_LoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
     if (uploadFailure != null) {
@@ -1493,5 +1536,175 @@ abstract class _UploadFailure implements GalleryState {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UploadFailureImplCopyWith<_$UploadFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LoadFailureImplCopyWith<$Res> {
+  factory _$$LoadFailureImplCopyWith(
+          _$LoadFailureImpl value, $Res Function(_$LoadFailureImpl) then) =
+      __$$LoadFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$LoadFailureImplCopyWithImpl<$Res>
+    extends _$GalleryStateCopyWithImpl<$Res, _$LoadFailureImpl>
+    implements _$$LoadFailureImplCopyWith<$Res> {
+  __$$LoadFailureImplCopyWithImpl(
+      _$LoadFailureImpl _value, $Res Function(_$LoadFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GalleryState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$LoadFailureImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LoadFailureImpl implements _LoadFailure {
+  const _$LoadFailureImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'GalleryState.loadFailure(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoadFailureImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of GalleryState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadFailureImplCopyWith<_$LoadFailureImpl> get copyWith =>
+      __$$LoadFailureImplCopyWithImpl<_$LoadFailureImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<ImageItem> images) loadSuccess,
+    required TResult Function() uploading,
+    required TResult Function() uploadSuccess,
+    required TResult Function(String message) uploadFailure,
+    required TResult Function(String message) loadFailure,
+  }) {
+    return loadFailure(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<ImageItem> images)? loadSuccess,
+    TResult? Function()? uploading,
+    TResult? Function()? uploadSuccess,
+    TResult? Function(String message)? uploadFailure,
+    TResult? Function(String message)? loadFailure,
+  }) {
+    return loadFailure?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<ImageItem> images)? loadSuccess,
+    TResult Function()? uploading,
+    TResult Function()? uploadSuccess,
+    TResult Function(String message)? uploadFailure,
+    TResult Function(String message)? loadFailure,
+    required TResult orElse(),
+  }) {
+    if (loadFailure != null) {
+      return loadFailure(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_LoadSuccess value) loadSuccess,
+    required TResult Function(_Uploading value) uploading,
+    required TResult Function(_UploadSuccess value) uploadSuccess,
+    required TResult Function(_UploadFailure value) uploadFailure,
+    required TResult Function(_LoadFailure value) loadFailure,
+  }) {
+    return loadFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_LoadSuccess value)? loadSuccess,
+    TResult? Function(_Uploading value)? uploading,
+    TResult? Function(_UploadSuccess value)? uploadSuccess,
+    TResult? Function(_UploadFailure value)? uploadFailure,
+    TResult? Function(_LoadFailure value)? loadFailure,
+  }) {
+    return loadFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_LoadSuccess value)? loadSuccess,
+    TResult Function(_Uploading value)? uploading,
+    TResult Function(_UploadSuccess value)? uploadSuccess,
+    TResult Function(_UploadFailure value)? uploadFailure,
+    TResult Function(_LoadFailure value)? loadFailure,
+    required TResult orElse(),
+  }) {
+    if (loadFailure != null) {
+      return loadFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LoadFailure implements GalleryState {
+  const factory _LoadFailure(final String message) = _$LoadFailureImpl;
+
+  String get message;
+
+  /// Create a copy of GalleryState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$LoadFailureImplCopyWith<_$LoadFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

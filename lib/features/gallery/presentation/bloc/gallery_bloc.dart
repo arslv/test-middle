@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../data/gallery_repository.dart';
@@ -25,12 +26,19 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
   Future<void> _onInitialized(_Initialized event, Emitter<GalleryState> emit) async {
     emit(const GalleryState.loading());
     
-    await _repository.ensureCollectionExists();
-    
-    await _gallerySubscription?.cancel();
-    _gallerySubscription = _repository.watchImages().listen(
-      (images) => add(GalleryEvent.imagesReceived(images)),
-    );
+    try {
+      await _repository.ensureCollectionExists();
+      
+      await _gallerySubscription?.cancel();
+      _gallerySubscription = _repository.watchImages().listen(
+        (images) => add(GalleryEvent.imagesReceived(images)),
+        onError: (error) {
+          emit(GalleryState.loadFailure('Ошибка подключения: $error'));
+        }
+      );
+    } catch (e) {
+      emit(GalleryState.loadFailure('Ошибка подключения: $e'));
+    }
   }
 
   Future<void> _onImagesReceived(_ImagesReceived event, Emitter<GalleryState> emit) async {
@@ -45,7 +53,7 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
 
     final (success, error) = await _repository.addImage(
       name: event.name,
-      imageUrl: event.imageUrl,
+      imageBytes: event.imageBytes,
       authorId: event.authorId,
       authorName: event.authorName,
     );

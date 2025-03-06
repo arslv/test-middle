@@ -8,7 +8,7 @@ class GalleryEvent with _$GalleryEvent {
   
   const factory GalleryEvent.imageUploadRequested({
     required String name,
-    required String imageUrl,
+    required Uint8List imageBytes,
     required String authorId,
     required String authorName,
   }) = _ImageUploadRequested;
