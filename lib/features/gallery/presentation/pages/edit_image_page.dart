@@ -9,6 +9,7 @@ import 'package:flutter_painter_v2/flutter_painter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:midtest/core/services/image_service.dart';
 import '../../../../core/navigation/navigation_extension.dart';
 import '../../../../core/navigation/app_routes.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
@@ -16,24 +17,25 @@ import '../../../../gen/assets.gen.dart';
 import '../../presentation/bloc/gallery_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/di/service_locator.dart';
-// import 'package:connectivity_plus/connectivity_plus.dart';
+import '../../domain/image_item.dart';
 import 'dart:async';
-import '../../../../core/services/network_service.dart';
 
-class CreateImagePage extends StatefulWidget {
-  const CreateImagePage({super.key});
+class EditImagePage extends StatefulWidget {
+  const EditImagePage({super.key});
 
   @override
-  State<CreateImagePage> createState() => _CreateImagePageState();
+  State<EditImagePage> createState() => _EditImagePageState();
 }
 
-class _CreateImagePageState extends State<CreateImagePage> {
+class _EditImagePageState extends State<EditImagePage> {
   late PainterController _controller;
   Color _selectedColor = Colors.black;
   bool _isErasing = false;
   final _auth = getIt<FirebaseAuth>();
   final _imagePicker = ImagePicker();
   bool _hasBackgroundImage = false;
+  late ImageItem _imageItem;
+  bool _isInitialized = false;
   bool _canUndo = false;
   bool _canRedo = false;
   Timer? _historyCheckTimer;
@@ -66,6 +68,49 @@ class _CreateImagePageState extends State<CreateImagePage> {
         _canUndo = canUndo;
         _canRedo = canRedo;
       });
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInitialized) {
+      final args = ModalRoute.of(context)?.settings.arguments;
+      if (args is ImageItem) {
+        _imageItem = args;
+        _loadOriginalImage();
+        _isInitialized = true;
+      } else {
+        // Если аргументы не переданы, возвращаемся на предыдущую страницу
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          context.pop();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Ошибка: изображение не найдено')),
+          );
+        });
+      }
+    }
+  }
+
+  Future<void> _loadOriginalImage() async {
+    try {
+      final imageService = getIt<ImageService>();
+      final imageData = imageService.decodeBase64Image(_imageItem.imageData);
+      
+      if (imageData != null) {
+        final image = await decodeImageFromList(imageData);
+        
+        setState(() {
+          _controller.background = ImageBackgroundDrawable(
+            image: image,
+          );
+          _hasBackgroundImage = true;
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ошибка при загрузке изображения: $e')),
+      );
     }
   }
 
@@ -155,12 +200,91 @@ class _CreateImagePageState extends State<CreateImagePage> {
     }
   }
 
+  void _saveImage() async {
+    try {
+      final renderSize = context.size ?? const Size(800, 600);
+      final image = await _controller.renderImage(renderSize);
+      
+      if (image != null) {
+        final byteData = await image.toByteData(format: ImageByteFormat.png);
+        if (byteData == null) {
+          _showUploadFailureDialog('Не удалось получить данные изображения');
+          return;
+        }
+        
+        final imageBytes = byteData.buffer.asUint8List();
+        
+        // Получаем текущего пользователя
+        final user = _auth.currentUser;
+        if (user == null) return;
+
+        // Показываем индикатор загрузки
+        if (!mounted) return;
+        
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          ),
+        );
+
+        // Отправляем событие обновления изображения
+        context.read<GalleryBloc>().add(
+          GalleryEvent.imageUpdateRequested(
+            id: _imageItem.id,
+            name: _imageItem.name,
+            imageBytes: imageBytes,
+            authorId: user.uid,
+            authorName: user.displayName ?? user.email ?? 'Неизвестный',
+          ),
+        );
+
+        // Слушаем состояние блока для обработки результата загрузки
+        final completer = Completer<bool>();
+        late final StreamSubscription<GalleryState> subscription;
+        
+        subscription = context.read<GalleryBloc>().stream.listen((state) {
+          state.maybeMap(
+            uploadSuccess: (_) {
+              subscription.cancel();
+              completer.complete(true);
+            },
+            uploadFailure: (_) {
+              subscription.cancel();
+              completer.complete(false);
+            },
+            orElse: () {
+            },
+          );
+        });
+
+        final success = await completer.future;
+        
+        if (!mounted) return;
+        
+        // Закрываем диалог загрузки
+        Navigator.of(context).pop();
+
+        if (success) {
+          _showUploadSuccessDialog();
+        } else {
+          _showUploadFailureDialog('Не удалось обновить изображение');
+        }
+      }
+    } catch (e) {
+      _showUploadFailureDialog('Ошибка: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF1F1F1F),
       appBar: CustomAppBar(
-        title: 'Создание',
+        title: 'Редактирование',
         prefix: CupertinoButton(
           padding: EdgeInsets.zero,
           onPressed: () => context.pop(),
@@ -238,7 +362,7 @@ class _CreateImagePageState extends State<CreateImagePage> {
                       tooltip: 'Кисть',
                     ),
                     _ToolButton(
-                      icon: Icons.cleaning_services,
+                      icon: Icons.cleaning_services_outlined,
                       isSelected: _isErasing,
                       onPressed: () {
                         setState(() {
@@ -252,7 +376,7 @@ class _CreateImagePageState extends State<CreateImagePage> {
                       icon: Icons.image,
                       isSelected: false,
                       onPressed: _pickImage,
-                      tooltip: 'Добавить фото',
+                      tooltip: 'Добавить фон',
                     ),
                     _ToolButton(
                       icon: Icons.delete_outline,
@@ -294,84 +418,6 @@ class _CreateImagePageState extends State<CreateImagePage> {
     );
   }
 
-  void _saveImage() async {
-    try {
-      final renderSize = context.size ?? const Size(800, 600);
-      final image = await _controller.renderImage(renderSize);
-      
-      if (image != null) {
-        final byteData = await image.toByteData(format: ImageByteFormat.png);
-        if (byteData == null) {
-          _showUploadFailureDialog('Не удалось получить данные изображения');
-          return;
-        }
-        
-        final imageBytes = byteData.buffer.asUint8List();
-        
-        // Получаем текущего пользователя
-        final user = _auth.currentUser;
-        if (user == null) return;
-
-        // Показываем индикатор загрузки
-        if (!mounted) return;
-        
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => const Center(
-            child: CircularProgressIndicator(
-              color: Colors.white,
-            ),
-          ),
-        );
-
-        // Отправляем событие загрузки изображения
-        context.read<GalleryBloc>().add(
-          GalleryEvent.imageUploadRequested(
-            name: 'Рисунок от ${user.displayName ?? user.email ?? 'пользователя'}',
-            imageBytes: imageBytes,
-            authorId: user.uid,
-            authorName: user.displayName ?? user.email ?? 'Неизвестный',
-          ),
-        );
-
-        // Слушаем состояние блока для обработки результата загрузки
-        final completer = Completer<bool>();
-        late final StreamSubscription<GalleryState> subscription;
-        
-        subscription = context.read<GalleryBloc>().stream.listen((state) {
-          state.maybeMap(
-            uploadSuccess: (_) {
-              subscription.cancel();
-              completer.complete(true);
-            },
-            uploadFailure: (_) {
-              subscription.cancel();
-              completer.complete(false);
-            },
-            orElse: () {
-            },
-          );
-        });
-
-        final success = await completer.future;
-        
-        if (!mounted) return;
-        
-        // Закрываем диалог загрузки
-        Navigator.of(context).pop();
-
-        if (success) {
-          _showUploadSuccessDialog();
-        } else {
-          _showUploadFailureDialog('Не удалось загрузить изображение');
-        }
-      }
-    } catch (e) {
-      _showUploadFailureDialog('Ошибка: $e');
-    }
-  }
-
   void _showUploadFailureDialog(String message) {
     showDialog(
       context: context,
@@ -393,7 +439,7 @@ class _CreateImagePageState extends State<CreateImagePage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Успех'),
-        content: Text('Изображение успешно загружено!'),
+        content: Text('Изображение успешно обновлено!'),
         actions: [
           TextButton(
             onPressed: () {

@@ -10,8 +10,8 @@ class AppRoutes {
   static const String login = '/login';
   static const String register = '/register';
   static const String gallery = '/gallery';
-  static const String createImage = '/create-image';
-  static const String editImage = '/edit-image';
+  static const String createImage = '/create_image';
+  static const String editImage = '/edit_image';
 
   static PageRoute getRoute(RouteSettings settings) {
     switch (settings.name) {

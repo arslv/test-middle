@@ -19,15 +19,30 @@ class ImageItem with _$ImageItem {
   factory ImageItem.fromJson(Map<String, dynamic> json) => _$ImageItemFromJson(json);
 
   factory ImageItem.fromFirestore(DocumentSnapshot doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    return ImageItem(
-      id: doc.id,
-      name: data['name'] as String,
-      imageData: data['imageData'] as String,
-      authorId: data['authorId'] as String,
-      authorName: data['authorName'] as String,
-      createdAt: _dateTimeFromJson(data['createdAt']),
-    );
+    try {
+      final data = doc.data() as Map<String, dynamic>;
+      
+      return ImageItem(
+        id: doc.id,
+        name: data['name'] as String? ?? 'Без названия',
+        imageData: data['imageData'] as String? ?? '',
+        authorId: data['authorId'] as String? ?? 'unknown',
+        authorName: data['authorName'] as String? ?? 'Неизвестный автор',
+        createdAt: _dateTimeFromJson(data['createdAt']),
+      );
+    } catch (e) {
+      print("Ошибка при создании ImageItem из документа ${doc.id}: $e");
+      print("Данные документа: ${doc.data()}");
+      
+      return ImageItem(
+        id: doc.id,
+        name: 'Ошибка загрузки',
+        imageData: '',
+        authorId: 'error',
+        authorName: 'Ошибка',
+        createdAt: DateTime.now(),
+      );
+    }
   }
 }
 

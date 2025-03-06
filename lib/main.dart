@@ -8,24 +8,24 @@ import 'package:midtest/features/gallery/presentation/bloc/gallery_bloc.dart';
 import 'core/di/service_locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:midtest/core/navigation/app_routes.dart';
+import 'features/gallery/presentation/pages/create_image_page.dart';
+import 'features/gallery/presentation/pages/edit_image_page.dart';
+import 'features/gallery/presentation/pages/gallery_page.dart';
+import 'features/auth/presentation/pages/login_page.dart';
+import 'features/auth/presentation/pages/register_page.dart';
+import 'features/splash/presentation/pages/splash_page.dart';
 
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Отключаем логи FlutterError в консоли
-  FlutterError.onError = (FlutterErrorDetails details) {
-    // В продакшене можно добавить сервис для логирования ошибок
-    if (kDebugMode) {
-      FlutterError.dumpErrorToConsole(details);
-    }
-  };
-  
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  
   setupServiceLocator();
+  
   runApp(const MyApp());
 }
 
@@ -40,14 +40,21 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => getIt<GalleryBloc>()),
       ],
       child: MaterialApp(
-        title: 'Gallery App',
+        title: 'Midtest',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF8924E7)),
           useMaterial3: true,
-          fontFamily: 'PressStart2P',
+          fontFamily: 'PressStart2P'
         ),
         initialRoute: AppRoutes.splash,
-        onGenerateRoute: AppRoutes.getRoute,
+        onGenerateRoute: (settings) => AppRoutes.getRoute(settings),
+        routes: {
+          AppRoutes.login: (context) => const LoginPage(),
+          AppRoutes.register: (context) => const RegisterPage(),
+          AppRoutes.gallery: (context) => const GalleryPage(),
+          AppRoutes.createImage: (context) => const CreateImagePage(),
+          AppRoutes.editImage: (context) => const EditImagePage(),
+        },
       ),
     );
   }

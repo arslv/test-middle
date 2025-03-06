@@ -22,7 +22,7 @@ dependencies:
   flutter_svg: ^2.0.17
   flutter_colorpicker: ^1.0.3
   flutter_painter_v2: ^2.1.0+1
-  connectivity_plus: ^5.0.2
+  image_picker: ^0.8.7+5
 
 dev_dependencies:
   flutter_test:

@@ -22,7 +22,7 @@ class FirestoreService {
     } on FirebaseException catch (e) {
       return (false, FirebaseErrorHandler.handleFirestoreError(e.code));
     } catch (e) {
-      return (false, 'Произошла неизвестная ошибка');
+      return (false, 'Произошла неизвестная ошибка: ${e.toString()}');
     }
   }
 
@@ -36,12 +36,17 @@ class FirestoreService {
     } on FirebaseException catch (e) {
       return (null, FirebaseErrorHandler.handleFirestoreError(e.code));
     } catch (e) {
-      return (null, 'Произошла неизвестная ошибка');
+      return (null, 'Произошла неизвестная ошибка: ${e.toString()}');
     }
   }
 
   Stream<QuerySnapshot> streamCollection(String collection) {
-    return _firestore.collection(collection).snapshots();
+    try {
+      return _firestore.collection(collection).snapshots();
+    } catch (e) {
+      // В случае ошибки возвращаем поток с ошибкой
+      return Stream.error(e);
+    }
   }
 
   Future<(QuerySnapshot?, String?)> getCollection(String collection) async {
@@ -51,7 +56,36 @@ class FirestoreService {
     } on FirebaseException catch (e) {
       return (null, FirebaseErrorHandler.handleFirestoreError(e.code));
     } catch (e) {
-      return (null, 'Произошла неизвестная ошибка');
+      return (null, 'Произошла неизвестная ошибка: ${e.toString()}');
+    }
+  }
+  
+  Future<(bool, String?)> updateDocument({
+    required String collection,
+    required String documentId,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      await _firestore.collection(collection).doc(documentId).update(data);
+      return (true, null);
+    } on FirebaseException catch (e) {
+      return (false, FirebaseErrorHandler.handleFirestoreError(e.code));
+    } catch (e) {
+      return (false, 'Произошла неизвестная ошибка: ${e.toString()}');
+    }
+  }
+  
+  Future<(bool, String?)> deleteDocument({
+    required String collection,
+    required String documentId,
+  }) async {
+    try {
+      await _firestore.collection(collection).doc(documentId).delete();
+      return (true, null);
+    } on FirebaseException catch (e) {
+      return (false, FirebaseErrorHandler.handleFirestoreError(e.code));
+    } catch (e) {
+      return (false, 'Произошла неизвестная ошибка: ${e.toString()}');
     }
   }
 } 

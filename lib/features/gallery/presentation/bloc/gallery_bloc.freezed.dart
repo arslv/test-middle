@@ -23,6 +23,9 @@ mixin _$GalleryEvent {
     required TResult Function(String name, Uint8List imageBytes,
             String authorId, String authorName)
         imageUploadRequested,
+    required TResult Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)
+        imageUpdateRequested,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,6 +35,9 @@ mixin _$GalleryEvent {
     TResult? Function(String name, Uint8List imageBytes, String authorId,
             String authorName)?
         imageUploadRequested,
+    TResult? Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)?
+        imageUpdateRequested,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +47,9 @@ mixin _$GalleryEvent {
     TResult Function(String name, Uint8List imageBytes, String authorId,
             String authorName)?
         imageUploadRequested,
+    TResult Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)?
+        imageUpdateRequested,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +58,7 @@ mixin _$GalleryEvent {
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_ImagesReceived value) imagesReceived,
     required TResult Function(_ImageUploadRequested value) imageUploadRequested,
+    required TResult Function(_ImageUpdateRequested value) imageUpdateRequested,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,6 +66,7 @@ mixin _$GalleryEvent {
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_ImagesReceived value)? imagesReceived,
     TResult? Function(_ImageUploadRequested value)? imageUploadRequested,
+    TResult? Function(_ImageUpdateRequested value)? imageUpdateRequested,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +74,7 @@ mixin _$GalleryEvent {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_ImagesReceived value)? imagesReceived,
     TResult Function(_ImageUploadRequested value)? imageUploadRequested,
+    TResult Function(_ImageUpdateRequested value)? imageUpdateRequested,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -135,6 +147,9 @@ class _$InitializedImpl implements _Initialized {
     required TResult Function(String name, Uint8List imageBytes,
             String authorId, String authorName)
         imageUploadRequested,
+    required TResult Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)
+        imageUpdateRequested,
   }) {
     return initialized();
   }
@@ -147,6 +162,9 @@ class _$InitializedImpl implements _Initialized {
     TResult? Function(String name, Uint8List imageBytes, String authorId,
             String authorName)?
         imageUploadRequested,
+    TResult? Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)?
+        imageUpdateRequested,
   }) {
     return initialized?.call();
   }
@@ -159,6 +177,9 @@ class _$InitializedImpl implements _Initialized {
     TResult Function(String name, Uint8List imageBytes, String authorId,
             String authorName)?
         imageUploadRequested,
+    TResult Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)?
+        imageUpdateRequested,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -173,6 +194,7 @@ class _$InitializedImpl implements _Initialized {
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_ImagesReceived value) imagesReceived,
     required TResult Function(_ImageUploadRequested value) imageUploadRequested,
+    required TResult Function(_ImageUpdateRequested value) imageUpdateRequested,
   }) {
     return initialized(this);
   }
@@ -183,6 +205,7 @@ class _$InitializedImpl implements _Initialized {
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_ImagesReceived value)? imagesReceived,
     TResult? Function(_ImageUploadRequested value)? imageUploadRequested,
+    TResult? Function(_ImageUpdateRequested value)? imageUpdateRequested,
   }) {
     return initialized?.call(this);
   }
@@ -193,6 +216,7 @@ class _$InitializedImpl implements _Initialized {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_ImagesReceived value)? imagesReceived,
     TResult Function(_ImageUploadRequested value)? imageUploadRequested,
+    TResult Function(_ImageUpdateRequested value)? imageUpdateRequested,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -286,6 +310,9 @@ class _$ImagesReceivedImpl implements _ImagesReceived {
     required TResult Function(String name, Uint8List imageBytes,
             String authorId, String authorName)
         imageUploadRequested,
+    required TResult Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)
+        imageUpdateRequested,
   }) {
     return imagesReceived(images);
   }
@@ -298,6 +325,9 @@ class _$ImagesReceivedImpl implements _ImagesReceived {
     TResult? Function(String name, Uint8List imageBytes, String authorId,
             String authorName)?
         imageUploadRequested,
+    TResult? Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)?
+        imageUpdateRequested,
   }) {
     return imagesReceived?.call(images);
   }
@@ -310,6 +340,9 @@ class _$ImagesReceivedImpl implements _ImagesReceived {
     TResult Function(String name, Uint8List imageBytes, String authorId,
             String authorName)?
         imageUploadRequested,
+    TResult Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)?
+        imageUpdateRequested,
     required TResult orElse(),
   }) {
     if (imagesReceived != null) {
@@ -324,6 +357,7 @@ class _$ImagesReceivedImpl implements _ImagesReceived {
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_ImagesReceived value) imagesReceived,
     required TResult Function(_ImageUploadRequested value) imageUploadRequested,
+    required TResult Function(_ImageUpdateRequested value) imageUpdateRequested,
   }) {
     return imagesReceived(this);
   }
@@ -334,6 +368,7 @@ class _$ImagesReceivedImpl implements _ImagesReceived {
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_ImagesReceived value)? imagesReceived,
     TResult? Function(_ImageUploadRequested value)? imageUploadRequested,
+    TResult? Function(_ImageUpdateRequested value)? imageUpdateRequested,
   }) {
     return imagesReceived?.call(this);
   }
@@ -344,6 +379,7 @@ class _$ImagesReceivedImpl implements _ImagesReceived {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_ImagesReceived value)? imagesReceived,
     TResult Function(_ImageUploadRequested value)? imageUploadRequested,
+    TResult Function(_ImageUpdateRequested value)? imageUpdateRequested,
     required TResult orElse(),
   }) {
     if (imagesReceived != null) {
@@ -474,6 +510,9 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
     required TResult Function(String name, Uint8List imageBytes,
             String authorId, String authorName)
         imageUploadRequested,
+    required TResult Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)
+        imageUpdateRequested,
   }) {
     return imageUploadRequested(name, imageBytes, authorId, authorName);
   }
@@ -486,6 +525,9 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
     TResult? Function(String name, Uint8List imageBytes, String authorId,
             String authorName)?
         imageUploadRequested,
+    TResult? Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)?
+        imageUpdateRequested,
   }) {
     return imageUploadRequested?.call(name, imageBytes, authorId, authorName);
   }
@@ -498,6 +540,9 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
     TResult Function(String name, Uint8List imageBytes, String authorId,
             String authorName)?
         imageUploadRequested,
+    TResult Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)?
+        imageUpdateRequested,
     required TResult orElse(),
   }) {
     if (imageUploadRequested != null) {
@@ -512,6 +557,7 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
     required TResult Function(_Initialized value) initialized,
     required TResult Function(_ImagesReceived value) imagesReceived,
     required TResult Function(_ImageUploadRequested value) imageUploadRequested,
+    required TResult Function(_ImageUpdateRequested value) imageUpdateRequested,
   }) {
     return imageUploadRequested(this);
   }
@@ -522,6 +568,7 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
     TResult? Function(_Initialized value)? initialized,
     TResult? Function(_ImagesReceived value)? imagesReceived,
     TResult? Function(_ImageUploadRequested value)? imageUploadRequested,
+    TResult? Function(_ImageUpdateRequested value)? imageUpdateRequested,
   }) {
     return imageUploadRequested?.call(this);
   }
@@ -532,6 +579,7 @@ class _$ImageUploadRequestedImpl implements _ImageUploadRequested {
     TResult Function(_Initialized value)? initialized,
     TResult Function(_ImagesReceived value)? imagesReceived,
     TResult Function(_ImageUploadRequested value)? imageUploadRequested,
+    TResult Function(_ImageUpdateRequested value)? imageUpdateRequested,
     required TResult orElse(),
   }) {
     if (imageUploadRequested != null) {
@@ -557,6 +605,228 @@ abstract class _ImageUploadRequested implements GalleryEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ImageUploadRequestedImplCopyWith<_$ImageUploadRequestedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ImageUpdateRequestedImplCopyWith<$Res> {
+  factory _$$ImageUpdateRequestedImplCopyWith(_$ImageUpdateRequestedImpl value,
+          $Res Function(_$ImageUpdateRequestedImpl) then) =
+      __$$ImageUpdateRequestedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String id,
+      String name,
+      Uint8List imageBytes,
+      String authorId,
+      String authorName});
+}
+
+/// @nodoc
+class __$$ImageUpdateRequestedImplCopyWithImpl<$Res>
+    extends _$GalleryEventCopyWithImpl<$Res, _$ImageUpdateRequestedImpl>
+    implements _$$ImageUpdateRequestedImplCopyWith<$Res> {
+  __$$ImageUpdateRequestedImplCopyWithImpl(_$ImageUpdateRequestedImpl _value,
+      $Res Function(_$ImageUpdateRequestedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GalleryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? name = null,
+    Object? imageBytes = null,
+    Object? authorId = null,
+    Object? authorName = null,
+  }) {
+    return _then(_$ImageUpdateRequestedImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageBytes: null == imageBytes
+          ? _value.imageBytes
+          : imageBytes // ignore: cast_nullable_to_non_nullable
+              as Uint8List,
+      authorId: null == authorId
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
+              as String,
+      authorName: null == authorName
+          ? _value.authorName
+          : authorName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ImageUpdateRequestedImpl implements _ImageUpdateRequested {
+  const _$ImageUpdateRequestedImpl(
+      {required this.id,
+      required this.name,
+      required this.imageBytes,
+      required this.authorId,
+      required this.authorName});
+
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final Uint8List imageBytes;
+  @override
+  final String authorId;
+  @override
+  final String authorName;
+
+  @override
+  String toString() {
+    return 'GalleryEvent.imageUpdateRequested(id: $id, name: $name, imageBytes: $imageBytes, authorId: $authorId, authorName: $authorName)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ImageUpdateRequestedImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality()
+                .equals(other.imageBytes, imageBytes) &&
+            (identical(other.authorId, authorId) ||
+                other.authorId == authorId) &&
+            (identical(other.authorName, authorName) ||
+                other.authorName == authorName));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, id, name,
+      const DeepCollectionEquality().hash(imageBytes), authorId, authorName);
+
+  /// Create a copy of GalleryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ImageUpdateRequestedImplCopyWith<_$ImageUpdateRequestedImpl>
+      get copyWith =>
+          __$$ImageUpdateRequestedImplCopyWithImpl<_$ImageUpdateRequestedImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialized,
+    required TResult Function(List<ImageItem> images) imagesReceived,
+    required TResult Function(String name, Uint8List imageBytes,
+            String authorId, String authorName)
+        imageUploadRequested,
+    required TResult Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)
+        imageUpdateRequested,
+  }) {
+    return imageUpdateRequested(id, name, imageBytes, authorId, authorName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialized,
+    TResult? Function(List<ImageItem> images)? imagesReceived,
+    TResult? Function(String name, Uint8List imageBytes, String authorId,
+            String authorName)?
+        imageUploadRequested,
+    TResult? Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)?
+        imageUpdateRequested,
+  }) {
+    return imageUpdateRequested?.call(
+        id, name, imageBytes, authorId, authorName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialized,
+    TResult Function(List<ImageItem> images)? imagesReceived,
+    TResult Function(String name, Uint8List imageBytes, String authorId,
+            String authorName)?
+        imageUploadRequested,
+    TResult Function(String id, String name, Uint8List imageBytes,
+            String authorId, String authorName)?
+        imageUpdateRequested,
+    required TResult orElse(),
+  }) {
+    if (imageUpdateRequested != null) {
+      return imageUpdateRequested(id, name, imageBytes, authorId, authorName);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_ImagesReceived value) imagesReceived,
+    required TResult Function(_ImageUploadRequested value) imageUploadRequested,
+    required TResult Function(_ImageUpdateRequested value) imageUpdateRequested,
+  }) {
+    return imageUpdateRequested(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_ImagesReceived value)? imagesReceived,
+    TResult? Function(_ImageUploadRequested value)? imageUploadRequested,
+    TResult? Function(_ImageUpdateRequested value)? imageUpdateRequested,
+  }) {
+    return imageUpdateRequested?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_ImagesReceived value)? imagesReceived,
+    TResult Function(_ImageUploadRequested value)? imageUploadRequested,
+    TResult Function(_ImageUpdateRequested value)? imageUpdateRequested,
+    required TResult orElse(),
+  }) {
+    if (imageUpdateRequested != null) {
+      return imageUpdateRequested(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ImageUpdateRequested implements GalleryEvent {
+  const factory _ImageUpdateRequested(
+      {required final String id,
+      required final String name,
+      required final Uint8List imageBytes,
+      required final String authorId,
+      required final String authorName}) = _$ImageUpdateRequestedImpl;
+
+  String get id;
+  String get name;
+  Uint8List get imageBytes;
+  String get authorId;
+  String get authorName;
+
+  /// Create a copy of GalleryEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ImageUpdateRequestedImplCopyWith<_$ImageUpdateRequestedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 

@@ -12,4 +12,12 @@ class GalleryEvent with _$GalleryEvent {
     required String authorId,
     required String authorName,
   }) = _ImageUploadRequested;
+
+  const factory GalleryEvent.imageUpdateRequested({
+    required String id,
+    required String name,
+    required Uint8List imageBytes,
+    required String authorId,
+    required String authorName,
+  }) = _ImageUpdateRequested;
 } 
