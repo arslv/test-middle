@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:ui';
-import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +15,7 @@ import '../../../../gen/assets.gen.dart';
 import '../../presentation/bloc/gallery_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/di/service_locator.dart';
-// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'dart:async';
-import '../../../../core/services/network_service.dart';
 
 class CreateImagePage extends StatefulWidget {
   const CreateImagePage({super.key});

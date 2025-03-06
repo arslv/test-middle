@@ -41,55 +41,20 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Midtest',
-        theme: ThemeData(
+        theme: ThemeData( //можно вынести
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF8924E7)),
           useMaterial3: true,
           fontFamily: 'PressStart2P'
         ),
         initialRoute: AppRoutes.splash,
         onGenerateRoute: (settings) => AppRoutes.getRoute(settings),
-        routes: {
+        routes: { //так же можно вынести
           AppRoutes.login: (context) => const LoginPage(),
           AppRoutes.register: (context) => const RegisterPage(),
           AppRoutes.gallery: (context) => const GalleryPage(),
           AppRoutes.createImage: (context) => const CreateImagePage(),
           AppRoutes.editImage: (context) => const EditImagePage(),
         },
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  // Пример использования сервисов
-  final authService = getIt<AuthService>();
-  final firestoreService = getIt<FirestoreService>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
-        ),
       ),
     );
   }
