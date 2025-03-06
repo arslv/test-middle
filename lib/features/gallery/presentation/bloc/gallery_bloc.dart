@@ -30,14 +30,23 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
       await _repository.ensureCollectionExists();
       
       await _gallerySubscription?.cancel();
+      
       _gallerySubscription = _repository.watchImages().listen(
-        (images) => add(GalleryEvent.imagesReceived(images)),
+        (images) {
+          if (!emit.isDone) {
+            add(GalleryEvent.imagesReceived(images));
+          }
+        },
         onError: (error) {
-          emit(GalleryState.loadFailure('Ошибка подключения: $error'));
+          if (!emit.isDone) {
+            emit(GalleryState.loadFailure('Ошибка подключения: $error'));
+          }
         }
       );
     } catch (e) {
-      emit(GalleryState.loadFailure('Ошибка подключения: $e'));
+      if (!emit.isDone) {
+        emit(GalleryState.loadFailure('Ошибка подключения: $e'));
+      }
     }
   }
 
